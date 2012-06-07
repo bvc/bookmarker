@@ -1,6 +1,12 @@
-<div class="center hero-unit">
-  <h1>Bookmarker</h1>
-  <h2>
-    All your bookmarks are belong to us!
-  </h2>
-</div>
+<% if signed_in? %>
+  <!--TODO Add stuff here-->
+  <h1>TODO Add stuff here</h1>
+<% else %>
+  <div class="center hero-unit">
+    <h1>Bookmarker</h1>
+    <h2>
+      All your bookmarks are belong to us!
+    </h2>
+    <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>
