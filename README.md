@@ -10,6 +10,6 @@ Just a little Ruby on Rails project to hack on and play around with after comple
 ## TODOs
 
 * ~~Home page~~
-* Login
+* ~~Login~~
 * Bookmarking
 * Hosting
