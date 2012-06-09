@@ -11,7 +11,15 @@ describe "StaticPages" do
     it { should have_selector("h2", text: "All your bookmarks are belong to us!") }
     it { should have_selector("title", text: full_title('')) }
 
-    # TODO add specs for signed in users
+    describe "for signed-in users" do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+
+
+        sign_in user
+        visit root_path
+      end
+    end
   end
 
   describe "About page" do

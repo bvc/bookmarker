@@ -5,4 +5,11 @@ FactoryGirl.define do
     password "password"
     password_confirmation "password"
   end
+
+  factory :bookmark do
+    sequence(:name) { |n| "Bookmark #{n}" }
+    url "http://www.example.com"
+    description "Lorem ipsum"
+    user
+  end
 end

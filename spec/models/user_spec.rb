@@ -27,6 +27,72 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
+  it { should respond_to(:bookmarks) }
 
+  it { should be_valid }
+
+  describe "when password is not present" do
+    before { @user.password = @user.password_confirmation = " " }
+    it { should_not be_valid }
+  end
+
+  describe "when password doesn't match confirmation" do
+    before { @user.password_confirmation = "mismatch" }
+    it { should_not be_valid }
+  end
+
+  describe "when password confirmation is nil" do
+    before { @user.password_confirmation = nil }
+    it { should_not be_valid }
+  end
+
+  describe "with a password that's too short" do
+    before { @user.password == @user.password_confirmation = "a" * 5 }
+    it { should be_invalid }
+  end
+
+  describe "return value of authenticate method" do
+    before { @user.save }
+    let(:found_user) { User.find_by_email(@user.email) }
+
+    describe "with valid password" do
+      it { should == found_user.authenticate(@user.password) }
+    end
+
+    describe "with invalid password" do
+      let(:user_for_invalid_password) { found_user.authenticate("invalid") }
+
+      it { should_not == user_for_invalid_password }
+      specify { user_for_invalid_password.should be_false }
+    end
+  end
+
+  describe "remember token" do
+    before { @user.save }
+    its(:remember_token) { should_not be_blank }
+  end
+
+  describe "bookmark associations" do
+    before { @user.save }
+    let!(:older_bookmark) do
+      FactoryGirl.create(:bookmark, user: @user, created_at: 1.day.ago)
+    end
+
+    let!(:newer_bookmark) do
+      FactoryGirl.create(:bookmark, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right bookmarks in order new to old" do
+      @user.bookmarks.should == [newer_bookmark, older_bookmark]
+    end
+
+    it "should destroy associated bookmarks" do
+      bookmarks = @user.bookmarks
+      @user.destroy
+      bookmarks.each do |bookmark|
+        Bookmark.find_by_id(bookmark.id).should be_nil
+      end
+    end
+  end
 
 end
