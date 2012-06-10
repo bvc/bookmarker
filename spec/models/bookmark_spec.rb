@@ -15,7 +15,7 @@ require 'spec_helper'
 
 describe Bookmark do
   let(:user) { FactoryGirl.create(:user) }
-  before { @bookmark = user.bookmarks.build(name: "Example", url: "http://www.example.com", description: "" ) }
+  before { @bookmark = user.bookmarks.build(name: "", url: "http://www.example.com", description: "" ) }
 
   subject { @bookmark }
 
@@ -31,7 +31,7 @@ describe Bookmark do
 
   describe "when name is not present" do
     before { @bookmark.name = "" }
-    it { should_not be_valid }
+    it { should be_valid }
   end
 
   describe "when url is not present" do

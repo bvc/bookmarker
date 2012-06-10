@@ -14,8 +14,8 @@ describe "StaticPages" do
     describe "for signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
       before do
-
-
+        FactoryGirl.create(:bookmark, user: user, name: "Google", url: "http://www.google.com")
+        FactoryGirl.create(:bookmark, user: user, name: "Yahoo", url: "http://www.yahoo.com")
         sign_in user
         visit root_path
       end

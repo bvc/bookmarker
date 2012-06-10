@@ -1,6 +1,25 @@
 <% if signed_in? %>
-  <!--TODO Add stuff here-->
-  <h1>TODO Add stuff here</h1>
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= render "shared/user_info" %>
+      </section>
+      <section>
+        <%= render "shared/stats" %>
+      </section>
+      <section>
+        <%= render "shared/bookmark_form" %>
+      </section>
+    </aside>
+    <div class="row">
+      <div class="span8">
+        <h3>
+          Bookmarks
+        </h3>
+        <%= render "shared/bookmark_feed" %>
+      </div>
+    </div>
+  </div>
 <% else %>
   <div class="center hero-unit">
     <h1>Bookmarker</h1>

@@ -17,6 +17,10 @@ class Bookmark < ActiveRecord::Base
 
   default_scope order: "bookmarks.created_at DESC"
 
-  validates(:name, presence: true, :length => { maximum: 255 } )
+  validates(:name, :length => { maximum: 255 } )
   validates(:url, presence: true, :length => { maximum: 1000 }, :format => URI::regexp(%w(http https)) )
+
+  def friendly_display
+    name.empty? ? url : name
+  end
 end
