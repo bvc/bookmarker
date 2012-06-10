@@ -24,6 +24,7 @@ describe Bookmark do
   it { should respond_to(:description) }
   it { should respond_to(:user) }
   it { should respond_to(:user_id) }
+  it { should respond_to(:friendly_display) }
 
   its(:user) { should == user }
 
@@ -32,11 +33,17 @@ describe Bookmark do
   describe "when name is not present" do
     before { @bookmark.name = "" }
     it { should be_valid }
+    it { @bookmark.friendly_display.should == "http://www.example.com" }
   end
 
   describe "when url is not present" do
     before { @bookmark.url = "" }
     it { should_not be_valid }
+  end
+
+  describe "when name is present" do
+    before { @bookmark.name = "Example" }
+    it { @bookmark.friendly_display.should == "Example" }
   end
 
   describe "when url is not a valid url" do
