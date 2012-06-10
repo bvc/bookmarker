@@ -11,5 +11,8 @@ Just a little Ruby on Rails project to hack on and play around with after comple
 
 * ~~Home page~~
 * ~~Login~~
-* Bookmarking
+* ~~Bookmarking~~
+* Export bookmarks
+* Display bookmarks
+* Finish up TODOs
 * Hosting
