@@ -1,5 +1,5 @@
 class BookmarksController < ApplicationController
-  before_filter :signed_in_user, only: [:create, :destroy]
+  before_filter :signed_in_user, only: [:create, :destroy, :export_all]
   before_filter :correct_user, only: :destroy
 
   def create
@@ -16,6 +16,10 @@ class BookmarksController < ApplicationController
   def destroy
     @bookmark.destroy
     redirect_to root_path
+  end
+
+  def export_all
+    @bookmarks = current_user.bookmarks
   end
 
   private
